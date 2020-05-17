@@ -6,6 +6,7 @@ import useMyContacts from "../hooks/useMyContacts";
 import ButtonCreate from "./ButtonCreate";
 import { AppContext } from "../App";
 import { useHistory } from "react-router-dom";
+import ChatBox from "./ChatBox";
 
 function Home() {
   const contacts = useMyContacts();
@@ -42,6 +43,7 @@ function Home() {
           <PeopleList {...contacts} />
         </Box>
       </Box>
+      <ChatBox />
     </Layout>
   );
 }
