@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace CompanyContactManagment.Controllers
 {
-    [Route("api/message-chat")]
+    [Route("api/MessageChat")]
     [ApiController]
     public class MessageChatController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace CompanyContactManagment.Controllers
             _context = context;
         }
 
-        // GET: api/User
+        // GET: api/MessageChat
         [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<MessageChatModel>>> GetMessageChats()
         {
@@ -45,7 +45,7 @@ namespace CompanyContactManagment.Controllers
             return messages;
         }
 
-        // GET: api/User/5
+        // GET: api/MessageChat/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MessageChatModel>> GetMessageChatModel(int id)
         {
@@ -60,7 +60,7 @@ namespace CompanyContactManagment.Controllers
             return messageChatModel;
         }
 
-        // PUT: api/User/
+        // PUT: api/MessageChat/
         [HttpPut]
         public async Task<IActionResult> PutMessageChatModel(MessageChatModel message)
         {
@@ -115,7 +115,7 @@ namespace CompanyContactManagment.Controllers
             _context.MessageChats.Add(message);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUserModel", new { id = message.Id }, message);
+            return CreatedAtAction("GetMessageChatModel", new { id = message.Id }, message);
         }
 
         // DELETE: api/MessageChat/all

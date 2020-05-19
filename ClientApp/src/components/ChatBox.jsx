@@ -5,9 +5,11 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useState } from "react";
 import MessageInput from "./MessageInput";
 import MessageList from "./MessageList";
+import useMessages from "../hooks/useMessages";
 
 function ChatBox() {
   const [anchorEl, setAnchorEl] = useState();
+  const { data, refresh } = useMessages();
 
   return (
     <div>
@@ -31,19 +33,26 @@ function ChatBox() {
           horizontal: "right",
         }}
       >
-        <Box display='flex' flexDirection='column' minWidth={320} minHeight={380} p={2}>
+        <Box
+          display="flex"
+          flexDirection="column"
+          minWidth={320}
+          minHeight={420}
+          maxHeight={420}
+          p={2}
+        >
           <Box display="flex" alignItems="center" borderBottom="solid 1px grey">
             <Typography variant="h6" style={{ flexGrow: 1 }}>
-              Message to Admins
+              Chat Room
             </Typography>
             <IconButton onClick={() => setAnchorEl(null)}>
               <CloseIcon />
             </IconButton>
           </Box>
-          <Box flexGrow={1}>
-            <MessageList />
+          <Box flexGrow={1} overflow="auto">
+            <MessageList data={data} />
           </Box>
-          <MessageInput />
+          <MessageInput refresh={refresh} />
         </Box>
       </Popover>
     </div>

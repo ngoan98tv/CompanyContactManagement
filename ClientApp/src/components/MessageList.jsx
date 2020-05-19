@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Typography, CircularProgress } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/CheckCircle";
-import useMessages from "../hooks/useMessages";
+import { AppContext } from "../App";
 
-function MessageList() {
-  const { data } = useMessages();
+function MessageList({data}) {
+  const { user } = useContext(AppContext);
 
   if (!data) {
     return (
@@ -14,8 +14,8 @@ function MessageList() {
 
   return (
     data &&
-    data.map(({ id, content, sender, isSeen }) =>
-      sender.role === 1 ? (
+    data.map(({ id, content, sender }) =>
+      user.id === sender.id ? (
         <Box
           key={id}
           display="flex"
@@ -27,13 +27,6 @@ function MessageList() {
           <Box p={1} bgcolor="gray" borderRadius="16px" color="white">
             <Typography>{content}</Typography>
           </Box>
-          <Typography color="textSecondary">
-            {isSeen && (
-              <small>
-                Seen <CheckIcon fontSize="inherit" />
-              </small>
-            )}
-          </Typography>
         </Box>
       ) : (
         <Box
@@ -47,11 +40,6 @@ function MessageList() {
           <Typography color="textSecondary">
             <small>
               <strong>{sender.name}</strong>
-              {" - "}
-              {sender.department && sender.department.name}
-              {sender.department &&
-                sender.department.company &&
-                ` (${sender.department.company.name})`}
             </small>
           </Typography>
           <Box p={1} bgcolor="blueviolet" borderRadius="16px" color="white">
